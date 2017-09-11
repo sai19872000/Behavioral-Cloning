@@ -25,7 +25,7 @@ There are two tracks available. I used both the tracks to collect the data. The 
 [image11]: ./figures/epochs.png "epochs"
 
 
-![alt text][image1]
+![png][image1]
 
 ## Files
 
@@ -147,6 +147,8 @@ train_lines, validation_lines = train_test_split(lines, test_size=0.2)
 I have used the Nvidia's self driving car architecture as a starting point and slightly modified to get better results. Here is the architecture
 
 ![png][image10]
+
+
 In this model the normalized image goes through inital convolutional layer with 24 feature maps and 5 by 5 filter followed by 2 convolutional layers each with 5 by 5 filter with 36 and 48 feature maps. After this 2 more convolutional layers each with 64 feature maps and 3 by 3 filter follow. The feature maps are now flattened followed by 4 fully connected layers with 100, 50, 10 and 1 hidden units respectively constitute the architecture.
 
 The keras implementation is as follows
