@@ -132,7 +132,21 @@ The images are finally normalized by keras lambda layer
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(66,200,3)))
 ```
 ## Keras generator
-I initially used a keras generator but later dropped it as it was not necessary for my computer 
+I initially used a keras generator but later dropped it as it was not necessary for the data set size I am using with my computer. However here is implementation of the generator I was using before
+
+```python
+def train_generator(data):
+    # training generator
+    while 1:
+        for i_line in range(len(data)):
+            line_data = data.iloc[[i_line]].reset_index()
+            #print(line_data)
+            x = image_aug(data)
+            x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2])
+            y = line_data[3]
+            y = np.array([[y]])
+            yield x, y
+```
 
 ## Spitting the data to training and testing 
 I have used sklearn library train_test_split funtion to split the data to training and validation set. In the split 80% is used for training and 20% for validation
