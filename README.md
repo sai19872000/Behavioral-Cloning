@@ -131,6 +131,8 @@ The images are finally normalized by keras lambda layer
 ```python
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(66,200,3)))
 ```
+## Keras generator
+I initially used a keras generator but later dropped it as it was not necessary for my computer 
 
 ## Model Architecture
 
@@ -138,4 +140,29 @@ I have used the Nvidia's self driving car architecture as a starting point and s
 
 ![png][image10]
 
-The keras implementation is as foll
+The keras implementation is as follows
+
+```python
+from keras.layers.core import Dropout
+model = Sequential()
+model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(66,200,3)))
+model.add(Convolution2D(24,5,5,subsample=(2,2),activation="elu",W_regularizer=l2(0.001)))
+model.add(Convolution2D(36,5,5,subsample=(2,2),activation="elu",W_regularizer=l2(0.001)))
+model.add(Convolution2D(48,5,5,subsample=(2,2),activation="elu",W_regularizer=l2(0.001)))
+model.add(Convolution2D(64,3,3,activation="elu",W_regularizer=l2(0.001)))
+model.add(Convolution2D(64,3,3,activation="elu",W_regularizer=l2(0.001)))
+model.add(Flatten())
+model.add(Dense(100,W_regularizer=l2(0.001)))
+
+model.add(ELU())
+model.add(Dense(50,W_regularizer=l2(0.001)))
+
+model.add(ELU())
+model.add(Dense(10,W_regularizer=l2(0.001)))
+model.add(ELU())
+model.add(Dense(1))
+
+model.compile(loss = 'mse', optimizer = Adam(lr=1e-4))
+```
+I have added l2 regularizer to the weight along with 2,2 subsampling to initial 3 convolutional layers to orginal architecture to prevent overfitting and for the model to able to drive in multiple tracks
+
