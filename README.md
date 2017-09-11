@@ -22,7 +22,7 @@ There are two tracks available. I used both the tracks to collect the data. The 
 [image8]: ./figures/hist_aug.png "aug histograms"
 [image9]: ./figures/cropped.png "cropped"
 [image10]: ./figures/model_nvidia.png "model architecture"
-
+[image11]: ./figures/epochs.png "epochs"
 
 
 ![alt text][image1]
@@ -134,6 +134,14 @@ model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(66,200,3)))
 ## Keras generator
 I initially used a keras generator but later dropped it as it was not necessary for my computer 
 
+## Spitting the data to training and testing 
+I have used sklearn library train_test_split funtion to split the data to training and validation set. In the split 80% is used for training and 20% for validation
+
+```python
+from sklearn.model_selection import train_test_split
+train_lines, validation_lines = train_test_split(lines, test_size=0.2)
+```
+
 ## Model Architecture
 
 I have used the Nvidia's self driving car architecture as a starting point and slightly modified to get better results. Here is the architecture
@@ -172,3 +180,17 @@ model.compile(loss = 'mse', optimizer = Adam(lr=1e-4))
 * The loss funtion is choosen to 'mse' since our steering angle is a continuous variable 
 
 * I have used Adam optimizer with a learning rate of 1e-4. I tried several learning rates ranging between 1e-2 to 1e-5 and found that the 1e-4 suits the best for this problem
+
+* I trained the model for 20 epochs; the snapshot below shows the model after 10 epochs
+
+![png][image11]
+
+As seen the model validation error was decreasing along with the training error at the end of 20 epochs the training error and validation error seem to low and close.
+
+## Model performance on tracks
+
+This model performs really good on tranck one and performs pretty decent on track 2. I have attached the performance video of the model on track one "video.mp4"
+
+## Possible improvements
+More training data if collected from track 2 can improve the performance on track2.
+Better image augmentation techniques can be implimented for faster car performance on both tracks
