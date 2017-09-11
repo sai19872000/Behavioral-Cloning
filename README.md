@@ -135,17 +135,17 @@ model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(66,200,3)))
 I initially used a keras generator but later dropped it as it was not necessary for the data set size I am using with my computer. However here is implementation of the generator I was using before
 
 ```python
-def train_generator(data):
+def train_generator(lines_df):
     # training generator
     while 1:
-        for i_line in range(len(data)):
-            line_data = data.iloc[[i_line]].reset_index()
+        for i_line in range(len(lines_df)):
+            line_data = lines_df.iloc[[i_line]].reset_index()
             #print(line_data)
-            x = image_aug(data)
-            x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2])
-            y = line_data[3]
-            y = np.array([[y]])
-            yield x, y
+            img = image_aug(lines_df)
+            img = img.reshape(1, img.shape[0], img.shape[1], img.shape[2])
+            measurement = line_data['measure'][0]
+            measurement = np.array([[y]])
+            yield img, measurement
 ```
 
 ## Spitting the data to training and testing 
