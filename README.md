@@ -139,6 +139,7 @@ I initially used a keras generator but later dropped it as it was not necessary 
 I have used the Nvidia's self driving car architecture as a starting point and slightly modified to get better results. Here is the architecture
 
 ![png][image10]
+In this model the normalized image goes through inital convolutional layer with 24 feature maps and 5 by 5 filter followed by 2 convolutional layers each with 5 by 5 filter with 36 and 48 feature maps. After this 2 more convolutional layers each with 64 feature maps and 3 by 3 filter follow. The feature maps are now flattened followed by 4 fully connected layers with 100, 50, 10 and 1 hidden units respectively constitute the architecture.
 
 The keras implementation is as follows
 
@@ -164,5 +165,10 @@ model.add(Dense(1))
 
 model.compile(loss = 'mse', optimizer = Adam(lr=1e-4))
 ```
-I have added l2 regularizer to the weight along with 2,2 subsampling to initial 3 convolutional layers to orginal architecture to prevent overfitting and for the model to able to drive in multiple tracks
+* I have added l2 regularizer to the weight along with 2,2 subsampling to initial 3 convolutional layers to orginal architecture to prevent overfitting and for the model to able to drive in multiple tracks
 
+* I have used ELU() activation vs relu for smoother steering angles vs relu
+
+* The loss funtion is choosen to 'mse' since our steering angle is a continuous variable 
+
+* I have used Adam optimizer with a learning rate of 1e-4. I tried several learning rates ranging between 1e-2 to 1e-5 and found that the 1e-4 suits the best for this problem
