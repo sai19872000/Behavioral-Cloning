@@ -12,12 +12,12 @@ There are two tracks available. I used both the tracks to collect the data. The 
 
 [//]: # (Image References)
 
-[image1]: ./figures/simulator.png "Simulator"
+[image1]: ./figures/Simulator.png "Simulator"
 [image2]: ./figures/center.png "center"
 [image3]: ./figures/clr.png "clr"
 [image4]: ./figures/flipimg.png "flip image"
 [image5]: ./figures/jitter.png "jitter image"
-[image6]: ./figuress/hist_initial.png "initial histogram"
+[image6]: ./figures/hist_initial.png "initial histogram"
 [image7]: ./figures/hist_drop.png "droped histogram"
 [image8]: ./figures/hist_aug.png "aug histograms"
 [image9]: ./figures/cropped.png "cropped"
